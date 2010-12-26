@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:activiti="http://activiti.org/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-705363b3-fca3-41b5-9645-8e85c660716b"
+             targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+	<process name="TryIPad2" id="TryIPad2" isExecutable="false">
+		<userTask id="Human_verification" name="Human verification">
+			<extensionElements>
+
+			</extensionElements>
+		</userTask>
+		<exclusiveGateway gatewayDirection="Diverging" id="Exclusive_Databased_Gateway_1" name="">
+			<extensionElements>
+
+			</extensionElements>
+		</exclusiveGateway>
+		<serviceTask id="Machine_validation" name="Machine validation" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<startEvent id="StartNoneEvent" name="">
+			<extensionElements>
+
+			</extensionElements>
+		</startEvent>
+		<serviceTask id="Inform_about_failed_validation" name="Inform about failed validation" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<exclusiveGateway gatewayDirection="Diverging" id="Exclusive_Databased_Gateway" name="">
+			<extensionElements>
+
+			</extensionElements>
+		</exclusiveGateway>
+		<parallelGateway gatewayDirection="Diverging" id="ParallelGateway" name="">
+			<extensionElements>
+
+			</extensionElements>
+		</parallelGateway>
+		<serviceTask id="Print_contract_and_leaflets" name="Print contract and leaflets" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<parallelGateway gatewayDirection="Converging" id="ParallelGateway_1" name="">
+			<extensionElements>
+
+			</extensionElements>
+		</parallelGateway>
+		<userTask id="Pack_parcel_with_iPad_2" name="Pack parcel with iPad 2">
+			<extensionElements>
+
+			</extensionElements>
+		</userTask>
+		<serviceTask id="Order_shipping" name="Order shipping" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<receiveTask id="Wait_for_customer_decision" instantiate="false" name="Wait for customer decision">
+			<extensionElements>
+
+			</extensionElements>
+		</receiveTask>
+		<userTask id="Examine_returned_parcel" name="Examine returned parcel">
+			<extensionElements>
+
+			</extensionElements>
+		</userTask>
+		<userTask id="Return_iPad_2_to_store" name="Return iPad 2 to store">
+			<extensionElements>
+
+			</extensionElements>
+		</userTask>
+		<endEvent id="EndNoneEvent" name="">
+			<extensionElements>
+
+			</extensionElements>
+		</endEvent>
+		<serviceTask id="Register_payment" name="Register payment" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<serviceTask id="Start_debt_collection_process" name="Start debt collection process" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<boundaryEvent attachedToRef="Wait_for_customer_decision" cancelActivity="true" id="t_30_days" name="30 days" parallelMultiple="false">
+			<timerEventDefinition id="sid-a72d20f0-7779-4183-b12b-b13d0d772646">
+				<timeDuration>30d</timeDuration>
+			</timerEventDefinition>
+		</boundaryEvent>
+		<sequenceFlow id="SequenceFlow_15" name="" sourceRef="StartNoneEvent" targetRef="Machine_validation" />
+		<sequenceFlow id="SequenceFlow_12" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Human_verification" />
+		<sequenceFlow id="SequenceFlow_13" name="" sourceRef="Machine_validation" targetRef="Exclusive_Databased_Gateway_1" />
+		<sequenceFlow id="SequenceFlow_1" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Inform_about_failed_validation" />
+		<sequenceFlow id="SequenceFlow_7" name="" sourceRef="Inform_about_failed_validation" targetRef="EndNoneEvent" />
+		<sequenceFlow id="SequenceFlow_4" name="" sourceRef="Exclusive_Databased_Gateway" targetRef="Inform_about_failed_validation" />
+		<sequenceFlow id="SequenceFlow_5" name="" sourceRef="Exclusive_Databased_Gateway" targetRef="ParallelGateway" />
+		<sequenceFlow id="SequenceFlow_3" name="" sourceRef="Human_verification" targetRef="Exclusive_Databased_Gateway" />
+		<sequenceFlow id="SequenceFlow_10" name="" sourceRef="ParallelGateway" targetRef="Print_contract_and_leaflets" />
+		<sequenceFlow id="SequenceFlow_11" name="" sourceRef="ParallelGateway" targetRef="Pack_parcel_with_iPad_2" />
+		<sequenceFlow id="SequenceFlow_14" name="" sourceRef="Print_contract_and_leaflets" targetRef="ParallelGateway_1" />
+		<sequenceFlow id="SequenceFlow_9" name="" sourceRef="Pack_parcel_with_iPad_2" targetRef="ParallelGateway_1" />
+		<sequenceFlow id="SequenceFlow_16" name="" sourceRef="ParallelGateway_1" targetRef="Order_shipping" />
+		<sequenceFlow id="SequenceFlow_8" name="" sourceRef="Order_shipping" targetRef="Wait_for_customer_decision" />
+		<sequenceFlow id="SequenceFlow_18" name="" sourceRef="t_30_days" targetRef="Start_debt_collection_process" />
+		<sequenceFlow id="SequenceFlow_17" name="" sourceRef="Start_debt_collection_process" targetRef="EndNoneEvent" />
+		<sequenceFlow id="SequenceFlow_19" name="" sourceRef="Wait_for_customer_decision" targetRef="Register_payment" />
+		<sequenceFlow id="SequenceFlow_20" name="" sourceRef="Wait_for_customer_decision" targetRef="Examine_returned_parcel" />
+		<sequenceFlow id="SequenceFlow" name="" sourceRef="Examine_returned_parcel" targetRef="Return_iPad_2_to_store" />
+		<sequenceFlow id="SequenceFlow_6" name="" sourceRef="Return_iPad_2_to_store" targetRef="EndNoneEvent" />
+		<sequenceFlow id="SequenceFlow_2" name="" sourceRef="Register_payment" targetRef="EndNoneEvent" />
+	</process>
+
+</definitions>
