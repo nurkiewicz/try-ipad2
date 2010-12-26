@@ -101,6 +101,19 @@
 			<version>1.1.1</version>
 			<scope>provided</scope>
 		</dependency>
+
+		<!-- Utilities -->
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<version>2.5</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+			<version>3.2.1</version>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>

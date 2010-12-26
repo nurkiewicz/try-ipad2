@@ -23,7 +23,15 @@
 		<property name="dataSource" ref="dataSource" />
 	</bean>
 
-	<bean id="initProcessEngines" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+	<bean id="readJavaUtilLoggingConfigFromClasspath" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+		<property name="staticMethod" value="org.activiti.engine.impl.util.LogUtil.readJavaUtilLoggingConfigFromClasspath"/>
+	</bean>
+	<bean id="SLF4JBridgeHandler.install" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="readJavaUtilLoggingConfigFromClasspath">
+		<property name="staticMethod" value="org.slf4j.bridge.SLF4JBridgeHandler.install"/>
+	</bean>
+
+	<!-- Workaround to http://jira.codehaus.org/browse/ACT-473 -->
+	<bean id="initProcessEngines" class="org.springframework.beans.factory.config.MethodInvokingFactoryBean" depends-on="SLF4JBridgeHandler.install">
 		<property name="staticMethod" value="org.activiti.engine.ProcessEngines.init"/>
 	</bean>
 	<bean id="processEngine" class="org.activiti.spring.ProcessEngineFactoryBean" depends-on="initProcessEngines">
@@ -34,7 +42,7 @@
 				<property name="transactionManager" ref="transactionManager" />
 				<property name="databaseSchemaUpdate" value="none" />
 				<property name="jobExecutorActivate" value="false" />
-				<property name="deploymentResources" value="classpath*:/com/blogspot/nurkiewicz/activiti/processes/*.bpmn20.xml" />
+				<property name="deploymentResources" value="classpath*:/com/blogspot/nurkiewicz/tryipad2/bpmn20/*.bpmn20.xml" />
 			</bean>
 		</property>
 	</bean>

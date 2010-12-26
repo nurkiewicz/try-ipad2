@@ -14,13 +14,13 @@
 
 			</extensionElements>
 		</exclusiveGateway>
-		<serviceTask id="Machine_validation" name="Machine validation" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<serviceTask id="Machine_validation" name="Machine validation" activiti:delegateExpression="${exampleDelegate}"/>
 		<startEvent id="StartNoneEvent" name="">
 			<extensionElements>
 
 			</extensionElements>
 		</startEvent>
-		<serviceTask id="Inform_about_failed_validation" name="Inform about failed validation" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<serviceTask id="Inform_about_failed_validation" name="Inform about failed validation" activiti:delegateExpression="${exampleDelegate}"/>
 		<exclusiveGateway gatewayDirection="Diverging" id="Exclusive_Databased_Gateway" name="">
 			<extensionElements>
 
@@ -31,7 +31,7 @@
 
 			</extensionElements>
 		</parallelGateway>
-		<serviceTask id="Print_contract_and_leaflets" name="Print contract and leaflets" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<serviceTask id="Print_contract_and_leaflets" name="Print contract and leaflets" activiti:delegateExpression="${exampleDelegate}"/>
 		<parallelGateway gatewayDirection="Converging" id="ParallelGateway_1" name="">
 			<extensionElements>
 
@@ -42,7 +42,7 @@
 
 			</extensionElements>
 		</userTask>
-		<serviceTask id="Order_shipping" name="Order shipping" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<serviceTask id="Order_shipping" name="Order shipping" activiti:delegateExpression="${exampleDelegate}"/>
 		<receiveTask id="Wait_for_customer_decision" instantiate="false" name="Wait for customer decision">
 			<extensionElements>
 
@@ -63,17 +63,17 @@
 
 			</extensionElements>
 		</endEvent>
-		<serviceTask id="Register_payment" name="Register payment" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
-		<serviceTask id="Start_debt_collection_process" name="Start debt collection process" activiti:class="com.blogspot.nurkiewicz.activiti.ipad2.SysoutDelegate"/>
+		<serviceTask id="Register_payment" name="Register payment" activiti:delegateExpression="${exampleDelegate}"/>
+		<serviceTask id="Start_debt_collection_process" name="Start debt collection process" activiti:delegateExpression="${exampleDelegate}"/>
 		<boundaryEvent attachedToRef="Wait_for_customer_decision" cancelActivity="true" id="t_30_days" name="30 days" parallelMultiple="false">
 			<timerEventDefinition id="sid-a72d20f0-7779-4183-b12b-b13d0d772646">
 				<timeDuration>30d</timeDuration>
 			</timerEventDefinition>
 		</boundaryEvent>
 		<sequenceFlow id="SequenceFlow_15" name="" sourceRef="StartNoneEvent" targetRef="Machine_validation" />
-		<sequenceFlow id="SequenceFlow_12" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Human_verification" />
 		<sequenceFlow id="SequenceFlow_13" name="" sourceRef="Machine_validation" targetRef="Exclusive_Databased_Gateway_1" />
 		<sequenceFlow id="SequenceFlow_1" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Inform_about_failed_validation" />
+		<sequenceFlow id="SequenceFlow_12" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Human_verification" />
 		<sequenceFlow id="SequenceFlow_7" name="" sourceRef="Inform_about_failed_validation" targetRef="EndNoneEvent" />
 		<sequenceFlow id="SequenceFlow_4" name="" sourceRef="Exclusive_Databased_Gateway" targetRef="Inform_about_failed_validation" />
 		<sequenceFlow id="SequenceFlow_5" name="" sourceRef="Exclusive_Databased_Gateway" targetRef="ParallelGateway" />

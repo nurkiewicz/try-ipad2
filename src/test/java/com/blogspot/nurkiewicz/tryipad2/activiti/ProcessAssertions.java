@@ -1,6 +1,5 @@
-package com.blogspot.nurkiewicz.activiti;
+package com.blogspot.nurkiewicz.tryipad2.activiti;
 
-import java.util.Collections;
 import java.util.List;
 
 import static org.fest.assertions.Assertions.assertThat;
