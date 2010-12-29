@@ -1,6 +1,8 @@
 package com.blogspot.nurkiewicz.tryipad2;
 
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 /**
@@ -10,8 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomerValidator {
 
+	private static final Logger log = LoggerFactory.getLogger(CustomerValidator.class);
+
 	public boolean valid(String ssn) {
-		return StringUtils.isBlank(ssn);
+		log.debug("Validating: {}", ssn);
+		return !StringUtils.isBlank(ssn);
 	}
 
 }

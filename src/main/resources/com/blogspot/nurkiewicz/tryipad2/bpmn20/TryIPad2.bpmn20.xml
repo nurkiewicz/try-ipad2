@@ -71,9 +71,17 @@
 			</timerEventDefinition>
 		</boundaryEvent>
 		<sequenceFlow id="SequenceFlow_15" name="" sourceRef="StartNoneEvent" targetRef="Machine_validation" />
-		<sequenceFlow id="SequenceFlow_13" name="" sourceRef="Machine_validation" targetRef="Exclusive_Databased_Gateway_1" />
-		<sequenceFlow id="SequenceFlow_1" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Inform_about_failed_validation" />
-		<sequenceFlow id="SequenceFlow_12" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Human_verification" />
+		<sequenceFlow id="SequenceFlow_13" name="" sourceRef="Machine_validation" targetRef="Exclusive_Databased_Gateway_1"/>
+		<sequenceFlow id="SequenceFlow_1" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Inform_about_failed_validation">
+			<conditionExpression xsi:type="tFormalExpression"><![CDATA[
+				${!customerValid}
+			]]> </conditionExpression>
+		</sequenceFlow>
+		<sequenceFlow id="SequenceFlow_12" name="" sourceRef="Exclusive_Databased_Gateway_1" targetRef="Human_verification" >
+			<conditionExpression xsi:type="tFormalExpression"><![CDATA[
+				${customerValid}
+			]]> </conditionExpression>
+		</sequenceFlow>
 		<sequenceFlow id="SequenceFlow_7" name="" sourceRef="Inform_about_failed_validation" targetRef="EndNoneEvent" />
 		<sequenceFlow id="SequenceFlow_4" name="" sourceRef="Exclusive_Databased_Gateway" targetRef="Inform_about_failed_validation" />
 		<sequenceFlow id="SequenceFlow_5" name="" sourceRef="Exclusive_Databased_Gateway" targetRef="ParallelGateway" />

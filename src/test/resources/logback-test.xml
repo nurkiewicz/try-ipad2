@@ -4,7 +4,7 @@
 
 	<logger name="org.springframework" level="INFO"/>
 	<logger name="org.apache.ibatis" level="INFO"/>
-	<logger name="org.activiti" level="DEBUG"/>
+	<logger name="org.activiti" level="ALL"/>
 	<logger name="org.activiti.engine.impl.cfg.standalone.StandaloneIbatisTransactionContext" level="INFO"/>
 	<logger name="org.activiti.engine.impl.db.DbSqlSession" level="INFO"/>
 	<logger name="org.activiti.engine.impl.interceptor.LogInterceptor" level="INFO"/>
