@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:activiti="http://activiti.org/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-705363b3-fca3-41b5-9645-8e85c660716b"
+             targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+	<process name="ForkJoin" id="ForkJoin">
+		<startEvent id="start" />
+		<parallelGateway id="fork" />
+		<userTask name="task_1" id="task_1" />
+		<userTask name="task_2" id="task_2" />
+		<parallelGateway id="join" />
+		<userTask name="ready" id="ready" />
+		<endEvent id="end" />
+
+		<sequenceFlow sourceRef="start" targetRef="fork" />
+		<sequenceFlow sourceRef="fork" targetRef="task_1" />
+		<sequenceFlow sourceRef="fork" targetRef="task_2" />
+		<sequenceFlow sourceRef="task_1" targetRef="join" />
+		<sequenceFlow sourceRef="task_2" targetRef="join" />
+		<sequenceFlow sourceRef="join" targetRef="ready" />
+		<sequenceFlow sourceRef="ready" targetRef="end" />
+	</process>
+</definitions>
