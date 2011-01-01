@@ -18,7 +18,6 @@ import org.fest.assertions.AssertExtension;
  */
 public class ProcessAssertions implements AssertExtension {
 
-	private final ProcessEngine processEngine;
 	private final String processId;
 	private final RuntimeService runtimeService;
 	private final HistoryService historyService;
@@ -27,16 +26,24 @@ public class ProcessAssertions implements AssertExtension {
 		return new ProcessAssertions(processId);
 	}
 
+	public static ProcessAssertions process(ProcessInstance process) {
+		return new ProcessAssertions(process.getId());
+	}
+
 	public ProcessAssertions(String processId) {
 		this.processId = processId;
-		processEngine = ProcessEngines.getDefaultProcessEngine();
+		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 		runtimeService = processEngine.getRuntimeService();
 		historyService = processEngine.getHistoryService();
 	}
 
 	public ProcessAssertions isInActivity(String activityId) {
+		return isInActivities(activityId);
+	}
+
+	public ProcessAssertions isInActivities(String... activitiesIds) {
 		final List<String> activeActivityIds = runtimeService.getActiveActivityIds(processId);
-		assertThat(activeActivityIds).contains(activityId);
+		assertThat(activeActivityIds).containsExactly((Object[])activitiesIds);
 		return this;
 	}
 
@@ -53,5 +60,4 @@ public class ProcessAssertions implements AssertExtension {
 		assertThat(historicProcessInstance).isNotNull();
 		return this;
 	}
-
 }
