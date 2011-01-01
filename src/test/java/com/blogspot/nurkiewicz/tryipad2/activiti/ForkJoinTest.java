@@ -28,7 +28,7 @@ public class ForkJoinTest {
 		final ExecutionEntity p = (ExecutionEntity) runtimeService.startProcessInstanceByKey("ForkJoin");
 		assertThat(process(p)).isInActivities("task_1", "task_2");
 		runtimeService.signal(p.getExecutions().get(0).getId());
-		System.out.println(p.getExecutions());
+		assertThat(process(p)).isInActivity("ready");
 		runtimeService.signal(p.getExecutions().get(1).getId());
 		assertThat(process(p)).isInActivity("ready");
 		runtimeService.signal(p.getId());
