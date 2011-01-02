@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 
-
-	<logger name="org.springframework" level="INFO"/>
+	<logger name="h2database" level="WARN"/>
+	<logger name="java" level="INFO"/>
 	<logger name="org.apache.ibatis" level="INFO"/>
 	<logger name="org.activiti" level="ALL"/>
 	<logger name="org.activiti.engine.impl.cfg.standalone.StandaloneIbatisTransactionContext" level="INFO"/>
 	<logger name="org.activiti.engine.impl.db.DbSqlSession" level="INFO"/>
 	<logger name="org.activiti.engine.impl.interceptor.LogInterceptor" level="INFO"/>
 	<logger name="org.activiti.engine.impl.pvm.runtime.ExecutionImpl" level="INFO"/>
-	<logger name="java" level="INFO"/>
+	<logger name="org.springframework" level="INFO"/>
 
 	<root level="ALL">
 		<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
 			<encoder>
-				<Pattern>%d{HH:mm:ss,SSS} | %-5level | %thread | %logger{0} | %m%n</Pattern>
+				<Pattern>%d{HH:mm:ss,SSS} | %-5level | %thread | %logger{1} | %m%n</Pattern>
 			</encoder>
 		</appender>
 	</root>
