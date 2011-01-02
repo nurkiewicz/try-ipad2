@@ -94,9 +94,13 @@ public class ForkJoinTest {
 		log.debug("Signalling fork B2 will activate Join B and and Join AB gateways subsequently");
 		runtimeService.signal(forkB2.getId());
 
+		assertThat(runtimeService.createExecutionQuery().executionId(forkA.getId()).singleResult()).isNull();
 		assertThat(runtimeService.createExecutionQuery().executionId(forkB1.getId()).singleResult()).isNull();
 		assertThat(runtimeService.createExecutionQuery().executionId(forkB2.getId()).singleResult()).isNull();
-		//assertThat(runtimeService.getActiveActivityIds(forkA.getId())).containsOnly("Task_C");
+		assertThat(runtimeService.getActiveActivityIds(pid)).containsOnly("Task_C");
+
+		log.debug("Signalling Task C to finish the process");
+		runtimeService.signal(pid);
 
 		assertThat(process(pid)).ended();
 	}
