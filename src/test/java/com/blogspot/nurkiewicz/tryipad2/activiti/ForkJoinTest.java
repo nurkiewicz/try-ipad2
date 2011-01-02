@@ -3,7 +3,6 @@ package com.blogspot.nurkiewicz.tryipad2.activiti;
 import java.util.List;
 import javax.annotation.Resource;
 
-import static com.blogspot.nurkiewicz.tryipad2.activiti.ProcessAssertions.process;
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.activiti.engine.RuntimeService;
@@ -102,7 +101,7 @@ public class ForkJoinTest {
 		log.debug("Signalling Task C to finish the process");
 		runtimeService.signal(pid);
 
-		assertThat(process(pid)).ended();
+		assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pid).singleResult()).isNull();
 	}
 
 }
