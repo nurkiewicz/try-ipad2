@@ -1,23 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <definitions xmlns:activiti="http://activiti.org/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
              xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-705363b3-fca3-41b5-9645-8e85c660716b"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-fd884a5a-a6bd-44f7-ad37-1efdc44c95fa"
              targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
-	<process name="ForkJoin" id="ForkJoin">
-		<startEvent id="start" />
-		<parallelGateway id="fork" />
-		<userTask name="task_1" id="task_1" />
-		<userTask name="task_2" id="task_2" />
-		<parallelGateway id="join" />
-		<userTask name="ready" id="ready" />
-		<endEvent id="end" />
 
-		<sequenceFlow sourceRef="start" targetRef="fork" />
-		<sequenceFlow sourceRef="fork" targetRef="task_1" />
-		<sequenceFlow sourceRef="fork" targetRef="task_2" />
-		<sequenceFlow sourceRef="task_1" targetRef="join" />
-		<sequenceFlow sourceRef="task_2" targetRef="join" />
-		<sequenceFlow sourceRef="join" targetRef="ready" />
-		<sequenceFlow sourceRef="ready" targetRef="end" />
+	<process name="ForkJoin" id="ForkJoin" isExecutable="false">
+		<startEvent id="Start" name="Start"/>
+		<userTask id="Task_0" name="Task 0"/>
+		<parallelGateway gatewayDirection="Diverging" id="Fork_AB" name="Fork AB"/>
+		<userTask id="Task_A" name="Task A"/>
+		<userTask id="Task_B" name="Task B"/>
+		<parallelGateway gatewayDirection="Diverging" id="Fork_B" name="Fork B"/>
+		<userTask id="Task_B1" name="Task B1"/>
+		<parallelGateway gatewayDirection="Converging" id="Join_B" name="Join B"/>
+		<userTask id="Task_B2" name="Task B2"/>
+		<parallelGateway gatewayDirection="Converging" id="Join_AB" name="Join AB"/>
+		<userTask id="Task_C" name="Task C"/>
+		<endEvent id="End" name="End"/>
+
+		<sequenceFlow id="Flow_2" name="" sourceRef="Fork_AB" targetRef="Task_A" />
+		<sequenceFlow id="Flow_5" name="" sourceRef="Fork_AB" targetRef="Task_B" />
+		<sequenceFlow id="Flow_7" name="" sourceRef="Task_B" targetRef="Fork_B" />
+		<sequenceFlow id="Flow_0" name="" sourceRef="Fork_B" targetRef="Task_B1" />
+		<sequenceFlow id="Flow_1" name="" sourceRef="Fork_B" targetRef="Task_B2" />
+		<sequenceFlow id="Flow_11" name="" sourceRef="Task_B1" targetRef="Join_B" />
+		<sequenceFlow id="Flow_10" name="" sourceRef="Task_B2" targetRef="Join_B" />
+		<sequenceFlow id="Flow_4" name="" sourceRef="Task_A" targetRef="Join_AB" />
+		<sequenceFlow id="Flow_3" name="" sourceRef="Join_B" targetRef="Join_AB" />
+		<sequenceFlow id="Flow_8" name="" sourceRef="Join_AB" targetRef="Task_C" />
+		<sequenceFlow id="Flow_12" name="" sourceRef="Task_C" targetRef="End" />
+		<sequenceFlow id="Flow_9" name="" sourceRef="Start" targetRef="Task_0" />
+		<sequenceFlow id="Flow_6" name="" sourceRef="Task_0" targetRef="Fork_AB" />
 	</process>
+
 </definitions>
