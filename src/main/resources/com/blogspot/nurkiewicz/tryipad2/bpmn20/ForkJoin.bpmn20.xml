@@ -23,10 +23,9 @@
 		<sequenceFlow id="Flow_7" name="" sourceRef="Task_B" targetRef="Fork_B" />
 		<sequenceFlow id="Flow_0" name="" sourceRef="Fork_B" targetRef="Task_B1" />
 		<sequenceFlow id="Flow_1" name="" sourceRef="Fork_B" targetRef="Task_B2" />
-		<sequenceFlow id="Flow_11" name="" sourceRef="Task_B1" targetRef="Join_B" />
-		<sequenceFlow id="Flow_10" name="" sourceRef="Task_B2" targetRef="Join_B" />
+		<sequenceFlow id="Flow_11" name="" sourceRef="Task_B1" targetRef="Join_AB" />
+		<sequenceFlow id="Flow_10" name="" sourceRef="Task_B2" targetRef="Join_AB" />
 		<sequenceFlow id="Flow_4" name="" sourceRef="Task_A" targetRef="Join_AB" />
-		<sequenceFlow id="Flow_3" name="" sourceRef="Join_B" targetRef="Join_AB" />
 		<sequenceFlow id="Flow_8" name="" sourceRef="Join_AB" targetRef="Task_C" />
 		<sequenceFlow id="Flow_12" name="" sourceRef="Task_C" targetRef="End" />
 		<sequenceFlow id="Flow_9" name="" sourceRef="Start" targetRef="Task_0" />
