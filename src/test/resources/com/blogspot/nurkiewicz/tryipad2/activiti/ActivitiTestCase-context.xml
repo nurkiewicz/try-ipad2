@@ -12,7 +12,7 @@
 		<property name="targetDataSource">
 			<bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 				<property name="driverClassName" value="org.h2.Driver" />
-				<property name="url" value="jdbc:h2:~/workspace/h2/activiti;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_FILE=4" />
+				<property name="url" value="jdbc:h2:~/h2/activiti;DB_CLOSE_ON_EXIT=FALSE;TRACE_LEVEL_FILE=4" />
 				<property name="username" value="sa" />
 				<property name="password" value="" />
 			</bean>
@@ -40,7 +40,7 @@
 				<property name="databaseType" value="h2" />
 				<property name="dataSource" ref="dataSource" />
 				<property name="transactionManager" ref="transactionManager" />
-				<property name="databaseSchemaUpdate" value="none" />
+				<property name="databaseSchemaUpdate" value="create-drop" />
 				<property name="jobExecutorActivate" value="false" />
 				<property name="deploymentResources" value="classpath*:/com/blogspot/nurkiewicz/tryipad2/bpmn20/*.bpmn20.xml" />
 			</bean>
