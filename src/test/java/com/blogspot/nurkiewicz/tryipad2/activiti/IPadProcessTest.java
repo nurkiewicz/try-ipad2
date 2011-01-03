@@ -13,16 +13,12 @@ import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
+@ContextConfiguration(locations = "classpath:/com/blogspot/nurkiewicz/tryipad2/activiti/ActivitiTestCase-context.xml")
 public class IPadProcessTest {
-
-	@Resource
-	private ApplicationContext context;
 
 	@Resource
 	private RuntimeService runtimeService;
@@ -39,10 +35,11 @@ public class IPadProcessTest {
 		variables.put("ssn", "987-65-4320");
 
 		ProcessInstance processInstance = runtimeService.startProcessInstanceByKey("TryIPad2", variables);
-		String id = processInstance.getId();
+		String pid = processInstance.getId();
 
-		assertThat(process(id)).isInActivity("Human_verification");
-		runtimeService.signal(id);
-		assertThat(process(id)).ended();
+		runtimeService.setVariable(pid, "customerVerified", true);
+		runtimeService.signal(pid);
+
+		assertThat(process(pid)).ended();
 	}
 }
