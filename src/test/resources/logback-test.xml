@@ -8,7 +8,8 @@
 	<logger name="org.activiti.engine.impl.cfg.standalone.StandaloneIbatisTransactionContext" level="INFO"/>
 	<logger name="org.activiti.engine.impl.db.DbSqlSession" level="INFO"/>
 	<logger name="org.activiti.engine.impl.interceptor.LogInterceptor" level="INFO"/>
-	<logger name="org.activiti.engine.impl.pvm.runtime.ExecutionImpl" level="ALL"/>
+	<logger name="org.activiti.engine.impl.pvm.runtime.ExecutionImpl" level="INFO"/>
+	<logger name="org.activiti.engine.impl.runtime.ExecutionEntity" level="INFO"/>
 	<logger name="org.springframework" level="INFO"/>
 
 	<root level="ALL">

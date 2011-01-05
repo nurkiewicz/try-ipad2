@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:activiti="http://activiti.org/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-c2f7dc08-c9d6-4a22-b608-b34fdb42b3bd"
+             targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+	<process name="ProcessWithSub" id="ProcessWithSub" isExecutable="false">
+		<startEvent id="Start" name="Start"/>
+		<userTask id="Task_A" name="Task A"/>
+		<subProcess id="SubProcess" name="SubProcess" triggeredByEvent="false">
+			<startEvent id="StartNoneEvent_2" name="StartNoneEvent"/>
+			<userTask id="Task_B1" name="Task B1"/>
+			<parallelGateway gatewayDirection="Diverging" id="ParallelGateway_1" name="ParallelGateway"/>
+			<parallelGateway gatewayDirection="Converging" id="ParallelGateway_2" name="ParallelGateway"/>
+			<userTask id="Task_B2" name="Task B2"/>
+			<endEvent id="SubEnd" name="End"/>
+			<sequenceFlow id="flow_4" sourceRef="StartNoneEvent_2" targetRef="ParallelGateway_1"/>
+			<sequenceFlow id="flow_8" sourceRef="ParallelGateway_1" targetRef="Task_B1"/>
+			<sequenceFlow id="flow_2" sourceRef="ParallelGateway_1" targetRef="Task_B2"/>
+			<sequenceFlow id="flow_9" sourceRef="Task_B1" targetRef="ParallelGateway_2"/>
+			<sequenceFlow id="flow_1" sourceRef="Task_B2" targetRef="ParallelGateway_2"/>
+			<sequenceFlow id="flow_10" sourceRef="ParallelGateway_2" targetRef="SubEnd"/>
+		</subProcess>
+		<userTask id="Task_C" name="Task C"/>
+		<endEvent id="End" name="End"/>
+		<sequenceFlow id="flow_3" sourceRef="Start" targetRef="Task_A"/>
+		<sequenceFlow id="flow_6" sourceRef="Task_A" targetRef="SubProcess"/>
+		<sequenceFlow id="flow_7" sourceRef="SubProcess" targetRef="Task_C"/>
+		<sequenceFlow id="flow_5" sourceRef="Task_C" targetRef="End"/>
+	</process>
+
+</definitions>
