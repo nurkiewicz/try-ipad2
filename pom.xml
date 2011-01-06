@@ -7,12 +7,6 @@
 	<artifactId>tryipad2</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<parent>
-		<groupId>org.activiti</groupId>
-		<artifactId>activiti-root</artifactId>
-		<version>5.1</version>
-	</parent>
-
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
