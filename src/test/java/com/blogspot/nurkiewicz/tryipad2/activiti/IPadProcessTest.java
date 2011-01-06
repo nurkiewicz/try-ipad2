@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.annotation.Resource;
 
-import static com.blogspot.nurkiewicz.tryipad2.activiti.ProcessAssertions.process;
 import static org.fest.assertions.Assertions.assertThat;
 
 import org.activiti.engine.HistoryService;
@@ -40,6 +39,6 @@ public class IPadProcessTest {
 		runtimeService.setVariable(pid, "customerVerified", true);
 		runtimeService.signal(pid);
 
-		assertThat(process(pid)).ended();
+		assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pid).singleResult()).isNull();
 	}
 }
