@@ -7,13 +7,13 @@
 		<startEvent id="Start" name="Start"/>
 		<userTask id="Task_A" name="Task A"/>
 		<subProcess id="SubProcess" name="SubProcess" triggeredByEvent="false">
-			<startEvent id="StartNoneEvent_2" name="StartNoneEvent"/>
+			<startEvent id="SubStart" name="SubStart"/>
 			<userTask id="Task_B1" name="Task B1"/>
 			<parallelGateway gatewayDirection="Diverging" id="ParallelGateway_1" name="ParallelGateway"/>
 			<parallelGateway gatewayDirection="Converging" id="ParallelGateway_2" name="ParallelGateway"/>
 			<userTask id="Task_B2" name="Task B2"/>
 			<endEvent id="SubEnd" name="End"/>
-			<sequenceFlow id="flow_4" sourceRef="StartNoneEvent_2" targetRef="ParallelGateway_1"/>
+			<sequenceFlow id="flow_4" sourceRef="SubStart" targetRef="ParallelGateway_1"/>
 			<sequenceFlow id="flow_8" sourceRef="ParallelGateway_1" targetRef="Task_B1"/>
 			<sequenceFlow id="flow_2" sourceRef="ParallelGateway_1" targetRef="Task_B2"/>
 			<sequenceFlow id="flow_9" sourceRef="Task_B1" targetRef="ParallelGateway_2"/>
