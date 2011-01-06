@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns:activiti="http://activiti.org/bpmn" xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC"
+             xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" xmlns:signavio="http://www.signavio.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             exporter="Signavio Process Editor, http://www.signavio.com" exporterVersion="" id="sid-272bf7e7-46a7-4fc0-94e7-c97244a554db"
+             targetNamespace="http://www.signavio.com/bpmn20" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL http://www.omg.org/spec/BPMN/2.0/20100501/BPMN20.xsd">
+	<process name="ProcessWithCall" id="ProcessWithCall" isExecutable="false">
+		<startEvent id="Start" name="Start" />
+		<sequenceFlow id="Flow_4" name="SequenceFlow" sourceRef="Start" targetRef="Task_A" />
+		<userTask id="Task_A" name="Task A" />
+		<sequenceFlow id="Flow_1" name="SequenceFlow" sourceRef="Task_A" targetRef="Start_ForkJoin" />
+		<callActivity id="Start_ForkJoin" name="Start ForkJoin" calledElement="ForkJoin" />
+		<sequenceFlow id="Flow_2" name="SequenceFlow" sourceRef="Start_ForkJoin" targetRef="Task_B" />
+		<userTask id="Task_B" name="Task B" />
+		<sequenceFlow id="Flow_3" name="SequenceFlow" sourceRef="Task_B" targetRef="End" />
+		<endEvent id="End" name="End" />
+	</process>
+
+</definitions>
