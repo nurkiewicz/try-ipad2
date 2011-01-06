@@ -10,6 +10,7 @@ import org.activiti.engine.HistoryService;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
@@ -29,6 +30,7 @@ public class IPadProcessTest {
 	private HistoryService historyService;
 
 	@Test
+	@Ignore
 	public void testHappyPath() {
 		Map<String,Object> variables = new HashMap<String, Object>();
 		variables.put("ssn", "987-65-4320");
