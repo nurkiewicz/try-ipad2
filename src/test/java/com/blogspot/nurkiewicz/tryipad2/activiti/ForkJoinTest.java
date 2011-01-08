@@ -7,6 +7,7 @@ import static org.fest.assertions.Assertions.assertThat;
 
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.Execution;
+import org.activiti.engine.runtime.ProcessInstance;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -29,19 +30,34 @@ public class ForkJoinTest {
 
 	@Test
 	public void shouldRunConcurrently() throws Exception {
-		final String pid = runtimeService.startProcessInstanceByKey("ForkJoin").getId();
+		final ProcessInstance process = runtimeService.startProcessInstanceByKey("ForkJoin");
+		final String pid = process.getId();
 
 		log.debug("Waiting in Task 0");
 		assertThat(runtimeService.getActiveActivityIds(pid)).containsOnly("Task_0");
 
 		//only one execution
-		assertThat(runtimeService.createExecutionQuery().processInstanceId(pid).list()).hasSize(1);
+		assertThat(
+				runtimeService
+						.createExecutionQuery()
+						.processInstanceId(pid)
+						.list()
+		).hasSize(1);
 
 		log.debug("Signaling advances to Task A and B concurrently");
 		runtimeService.signal(pid);
 		assertThat(runtimeService.getActiveActivityIds(pid)).containsOnly("Task_A", "Task_B");
 
-		final Execution forkA = runtimeService.createExecutionQuery()
+		//three execution
+		assertThat(
+				runtimeService
+						.createExecutionQuery()
+						.processInstanceId(pid)
+						.list()
+		).hasSize(3);
+
+		final Execution forkA = runtimeService
+				.createExecutionQuery()
 				.activityId("Task_A")
 				.processInstanceId(pid)
 				.singleResult();
@@ -54,12 +70,23 @@ public class ForkJoinTest {
 		//no active activities in fork A since waiting in join
 		assertThat(runtimeService.getActiveActivityIds(forkA.getId())).isEmpty();
 
+		assertThat(runtimeService
+				.createExecutionQuery()
+				.processInstanceId(pid)
+				.list()
+		).hasSize(3);
 
 		final Execution forkB = runtimeService.createExecutionQuery()
 				.activityId("Task_B")
 				.processInstanceId(pid)
 				.singleResult();
 		log.debug("Found forked execution {} in Task B activity for process {}", forkB, pid);
+
+		assertThat(runtimeService
+				.createExecutionQuery()
+				.processInstanceId(pid)
+				.list()
+		).hasSize(3);
 
 		runtimeService.signal(forkB.getId());
 		log.debug("Advanced fork B, waiting in concurrent activities B1 and B2");
@@ -73,6 +100,7 @@ public class ForkJoinTest {
 				.singleResult();
 		assertThat(forkB1).isNotNull();
 		assertThat(runtimeService.getActiveActivityIds(forkB1.getId())).containsOnly("Task_B1");
+
 		final Execution forkB2 = runtimeService
 				.createExecutionQuery()
 				.processInstanceId(pid)
@@ -80,28 +108,59 @@ public class ForkJoinTest {
 				.singleResult();
 		assertThat(forkB2).isNotNull();
 		assertThat(runtimeService.getActiveActivityIds(forkB1.getId())).containsOnly("Task_B1");
+
 		log.debug("Found forked executions {} and {} in B1/B2 activities accordingly ", forkB1, forkB2);
 
-		final List<Execution> executions = runtimeService.createExecutionQuery().processInstanceId(pid).list();
+		final List<Execution> executions = runtimeService
+				.createExecutionQuery()
+				.processInstanceId(pid)
+				.list();
 		assertThat(executions).hasSize(4);
 		log.debug("Found {} executions: {}", executions.size(), executions);
 
 		runtimeService.signal(forkB1.getId());
 		assertThat(runtimeService.getActiveActivityIds(forkB1.getId())).isEmpty();
+		assertThat(runtimeService.getActiveActivityIds(forkB2.getId())).containsExactly("Task_B2");
 		assertThat(runtimeService.getActiveActivityIds(forkA.getId())).isEmpty();
 
-		log.debug("Signalling fork B2 will activate Join B and and Join AB gateways subsequently");
+		log.debug("Signalling fork B2 will activate Join AB");
 		runtimeService.signal(forkB2.getId());
 
-		assertThat(runtimeService.createExecutionQuery().executionId(forkA.getId()).singleResult()).isNull();
-		assertThat(runtimeService.createExecutionQuery().executionId(forkB1.getId()).singleResult()).isNull();
-		assertThat(runtimeService.createExecutionQuery().executionId(forkB2.getId()).singleResult()).isNull();
+		assertThat(
+				runtimeService
+						.createExecutionQuery()
+						.executionId(forkA.getId())
+						.singleResult()
+		).isNull();
+		assertThat(
+				runtimeService
+						.createExecutionQuery()
+						.executionId(forkB1.getId())
+						.singleResult()
+		).isNull();
+		assertThat(
+				runtimeService
+						.createExecutionQuery()
+						.executionId(forkB2.getId())
+						.singleResult()
+		).isNull();
 		assertThat(runtimeService.getActiveActivityIds(pid)).containsOnly("Task_C");
 
+		assertThat(
+				runtimeService
+						.createExecutionQuery()
+						.processInstanceId(pid)
+						.list()
+		).hasSize(1);
 		log.debug("Signalling Task C to finish the process");
 		runtimeService.signal(pid);
 
-		assertThat(runtimeService.createProcessInstanceQuery().processInstanceId(pid).singleResult()).isNull();
+		assertThat(
+				runtimeService
+						.createProcessInstanceQuery()
+						.processInstanceId(pid)
+						.singleResult()
+		).isNull();
 	}
 
 }
