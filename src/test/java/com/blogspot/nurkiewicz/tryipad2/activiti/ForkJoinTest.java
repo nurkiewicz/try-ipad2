@@ -107,7 +107,7 @@ public class ForkJoinTest {
 				.activityId("Task_B2")
 				.singleResult();
 		assertThat(forkB2).isNotNull();
-		assertThat(runtimeService.getActiveActivityIds(forkB1.getId())).containsOnly("Task_B1");
+		assertThat(runtimeService.getActiveActivityIds(forkB2.getId())).containsOnly("Task_B2");
 
 		log.debug("Found forked executions {} and {} in B1/B2 activities accordingly ", forkB1, forkB2);
 
